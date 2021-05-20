@@ -3,9 +3,10 @@ import {Link} from 'react-router-dom'
 const Header = () => {
   return(
     <header>
-      <Link>Auth</Link>
-      <Link>Products</Link>
-      <Link>Cart</Link>
+      <Link to="/">Dashboard</Link>
+      <Link to="/auth">Auth</Link>
+      <Link to="/products">Products</Link>
+      <Link to="/cart">Cart</Link>
     </header>
   )
 }

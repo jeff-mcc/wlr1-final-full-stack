@@ -13,7 +13,10 @@ const session = require('express-session')
 const {CONNECTION_STRING, SESSION_SECRET, SERVER_PORT} = process.env
 
 // CONTROLLERS
-
+const authCtrl = require('./controllers/authcontroller')
+const productCtrl = require('./controllers/productController')
+const cartCtrl = require('./controllers/cartController')
+const cartController = require('./controllers/cartController')
 
 // APP INSTANCE CREATED
 const app = express()
@@ -40,3 +43,14 @@ massive({
 
 
 // ENDPOINTS
+//auth endpoints
+app.post('/auth/register', authCtrl.register)
+app.post('/auth/login', authCtrl.login)
+app.get('/auth/logout', authCtrl.logout)
+
+//product endpoints
+app.get('/api/products', productCtrl.getproducts)
+
+//cart endpoints
+app.get('/api/cart/', cartCtrl.getCart)
+app.get('/api/cart/:product_id', cartCtrl.addToCart)
