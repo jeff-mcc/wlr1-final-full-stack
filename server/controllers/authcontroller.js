@@ -21,6 +21,7 @@ module.exports = {
         const db = req.app.get('db')
         const {email,password} = req.body
         const [user] = await db.auth.check_email(email)
+        // console.log(user)
         if(!user){
             return res.status(401).send("User Not Found")
         }
@@ -29,6 +30,7 @@ module.exports = {
             return res.status(401).send("Password Incorrect")
         }
         const [cart] = await db.cart.get_cart(user.user_id)
+        // console.log(cart)
         delete user.password
         req.session.user = user
         req.session.user.cart_id = cart.cart_id
@@ -38,5 +40,16 @@ module.exports = {
         req.session.destroy()
         res.sendStatus(200)
     },
-    getUser: (req,res)=>{}
+    // getUser: (req,res)=>{
+    //     const db = req.app.get('db')
+    //     const {user} = req.session
+    //     if(!user){
+    //         return res.status(511).send("User not logged in")
+    //     }else{
+    //         db.cart.get_cart_items(user.cart_id).then((cartProducts)=>{
+    //             res.status(200).send({user,cartProducts})
+    //         })
+    //         // res.status(200).send(req.session.user)
+    //     }
+    // }
 }
